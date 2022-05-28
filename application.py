@@ -5,7 +5,7 @@ import json
 import pyodbc
 
 
-conn = pyodbc.connect('Driver={SQL Server};Server=tcp:finalresearchdbserver.database.windows.net,1433;Database=SuperMarket;Uid=imesha;Pwd=Mitb@1018;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
+conn = pyodbc.connect('Driver={ODBC Driver 17 for SQL Server};Server=tcp:finalresearchdbserver.database.windows.net,1433;Database=SuperMarket;Uid=imesha;Pwd=Mitb@1018;Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;')
  
 
 app = Flask(__name__)
