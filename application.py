@@ -31,7 +31,8 @@ def customerRegistration():
 
         if not rows:
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO customer (NIC, customerName, DOB, email, pwd) VALUES (?, ?, ?, ?, ?)", (NIC, customerName, DOB, email, pwd))
+            cursor.execute('''INSERT INTO [dbo].[customer] (NIC, customerName, DOB, email, pwd) VALUES (?, ?, ?, ?, ?)''', (NIC, customerName, DOB, email, pwd))
+            print("rows Count", cursor.rowcount)
             if cursor.rowcount == 1:
                 return  make_response(jsonify({"data" : "Registartion Done Successfully.", "status" : "Success"}), 200)
             else:
@@ -114,10 +115,10 @@ def deleteBill():
         orderID = json['orderID']
         try:
             cursor = conn.cursor()
-            cursor.execute('DELETE FROM bill WHERE (orderID = ?) AND (customerID = ?)',(customerID,orderID))
+            cursor.execute('''DELETE FROM [dbo].[bill] WHERE (orderID = ?) AND (customerID = ?)''',(orderID,customerID))
             print("row: ", cursor.rowcount , " row/s Effected")
             
-            if cursor.rowcount == 0:
+            if cursor.rowcount > 0:
                 # Create a string representation of your array of bills.
                 return  make_response(jsonify({"data" : "Bill Detail Deleted Successfully", "status" : "Success"}), 200)
             else:
@@ -132,7 +133,7 @@ def deleteBill():
 def createExample():
     try:
         cursor = conn.cursor()
-        cursor.execute('SELECT * FROM product')
+        cursor.execute('SELECT * FROM [dbo].[customer]')
         rows = [x for x in cursor]
         cols = [x[0] for x in cursor.description]
         songs = []
